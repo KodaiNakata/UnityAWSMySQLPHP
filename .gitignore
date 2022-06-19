@@ -42,3 +42,4 @@ AWSMySQLPHP/Library/Artifacts/*
 *.pdf
 *.log
 *.7z
+AWSMySQLPHP/Logs/*
