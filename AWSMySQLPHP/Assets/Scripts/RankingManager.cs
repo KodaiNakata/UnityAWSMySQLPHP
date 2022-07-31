@@ -36,6 +36,12 @@ namespace UnityRanking
         private TMP_InputField nameField;
 
         /// <summary>
+        /// ランキングビューの内容
+        /// </summary>
+        [SerializeField]
+        private RectTransform rankingViewContent;
+
+        /// <summary>
         /// 直前のスコア
         /// </summary>
         private IScore lastScore;
@@ -46,6 +52,7 @@ namespace UnityRanking
         void Start()
         {
             lastScore = RankingLoader.Instance.LastScore;
+            scoreLabel.text = lastScore.TextForDisplay;
 
             // 現在のランキングの取得
             StartCoroutine(GetCurrentRanking());
@@ -66,6 +73,7 @@ namespace UnityRanking
         /// </summary>
         public void OnCloseButtonClick()
         {
+            // ランキングフォームを閉じる
             closeButton.interactable = false;
             UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("Ranking");
         }
