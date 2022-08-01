@@ -93,6 +93,9 @@ namespace UnityRanking
         /// <returns></returns>
         private IEnumerator SendScore()
         {
+            //名前が空白の場合はどのような処理をするのかを決める
+            sendButton.interactable = false;
+
             //パラメータはスコアの値と名前（サーバーとのやり取り）
             yield return null;
         }
