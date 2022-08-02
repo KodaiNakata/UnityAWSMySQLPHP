@@ -93,6 +93,10 @@ namespace UnityRanking
         /// <returns></returns>
         private IEnumerator SendScore()
         {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add("name", nameField.text);
+            dic.Add("score", lastScore.TextForDisplay);
+
             //名前が空白の場合はどのような処理をするのかを決める
             sendButton.interactable = false;
 
