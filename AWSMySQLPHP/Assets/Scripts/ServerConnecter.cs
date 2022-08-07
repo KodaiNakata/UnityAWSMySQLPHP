@@ -40,7 +40,8 @@ public class ServerConnecter
 
             if (unityWebRequest.isDone)
             {
-                Debug.Log("成功");
+                Debug.Log("HttpPost OK:" + unityWebRequest.downloadHandler.text);
+                //TODO:レスポンスデータを格納
             }
             else
             {
