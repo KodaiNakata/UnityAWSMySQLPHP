@@ -1,5 +1,9 @@
 <?php
 
+// DB接続処理
+require_once('DBConnect.php');
+$pdo = connectDB();
+
 // POSTうけとり
 $ranking_num = $_POST["rankingNum"];
 
