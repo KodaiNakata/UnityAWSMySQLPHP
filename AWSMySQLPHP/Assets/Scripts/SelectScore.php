@@ -8,7 +8,11 @@ $pdo = connectDB();
 $ranking_num = $_POST["rankingNum"];
 
 try {
-    $stmt = $pdo->query("SELECT * FROM `score` LIMIT '" . $ranking_num . "'");
+    // スコアの取得のSQLを実行
+    $query = 'SELECT * FROM score LIMIT :ranking_num;';
+    $prepare = $pdo->prepare($query);
+    $prepare->bind_value(':ranking_num', $ranking_num, PDO::PARAM_INT);
+    $stmt = $pdo->execute();
     foreach ($stmt as $row) {
         $res = $res . $row['name'];
         $res = $res . $row['score'];
