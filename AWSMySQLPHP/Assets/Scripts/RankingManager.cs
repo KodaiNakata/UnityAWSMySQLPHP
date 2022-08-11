@@ -64,6 +64,9 @@ namespace UnityRanking
         /// <returns></returns>
         private IEnumerator GetCurrentRanking()
         {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add("rankingNum", "1");
+
             //サーバーとのやり取りを追加予定
             yield return null;
         }
