@@ -9,15 +9,14 @@ $name = $_POST["name"];
 $score = $_POST["score"];
 
 try {
-    $stmt = $pdo->query("INSERT INTO `score` VALUES ('" . $name . "','" . $score . "'");
-    foreach ($stmt as $row) {
-        $res = $res . $row['name'];
-        $res = $res . $row['score'];
-    }
+    // スコアの登録のSQLを実行
+    $query = 'INSERT INTO score VALUES (:name , :score);';
+    $prepare = $pdo->prepare($query);
+    $prepare->bind_value(':name', $name, PDO::PARAM_STR);
+    $prepare->bind_value(':score', $score);
+    $pdo->execute();
 } catch (PDOException $e) {
     var_dump($e->getMessage());
 }
 
 $pdo = null; // DB切断
-
-echo $res; // クライアントに結果を返す
