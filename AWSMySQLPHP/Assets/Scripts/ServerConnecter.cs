@@ -12,11 +12,24 @@ public class ServerConnecter
     private const string SERVER_ADDRESS = "";
 
     /// <summary>
-    /// コンストラクタ
+    /// 自クラスのインスタンス
     /// </summary>
-    public ServerConnecter()
-    {
+    private static ServerConnecter instance;
 
+    /// <summary>
+    /// 自クラスのインスタンスのプロパティ
+    /// </summary>
+    /// <value></value>
+    public static ServerConnecter Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new ServerConnecter();
+            }
+            return instance;
+        }
     }
 
     /// <summary>
@@ -24,7 +37,7 @@ public class ServerConnecter
     /// </summary>
     /// <param name="requestParams">リクエストパラメータ</param>
     /// <returns></returns>
-    private IEnumerator Post(Dictionary<string, string> requestParams)
+    public IEnumerator Post(Dictionary<string, string> requestParams)
     {
         // リクエストパラメータの設定
         WWWForm wWWForm = new WWWForm();
