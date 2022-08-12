@@ -67,8 +67,9 @@ namespace UnityRanking
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("rankingNum", "1");
 
-            //サーバーとのやり取りを追加予定
-            yield return null;
+            // POST通信を実施
+            yield return ServerConnecter.Instance.Post(dic);
+            //yield return null;
         }
 
         /// <summary>
@@ -103,8 +104,8 @@ namespace UnityRanking
             //名前が空白の場合はどのような処理をするのかを決める
             sendButton.interactable = false;
 
-            //パラメータはスコアの値と名前（サーバーとのやり取り）
-            yield return null;
+            // POST通信を実施
+            yield return ServerConnecter.Instance.Post(dic);
         }
     }
 }
