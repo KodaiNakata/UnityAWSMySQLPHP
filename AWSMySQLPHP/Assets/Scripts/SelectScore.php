@@ -6,10 +6,17 @@ $pdo = connectDB();
 
 // POSTうけとり
 $ranking_num = $_POST["rankingNum"];
+$order_by = $_POST["orderBy"];
 
 try {
     // スコアの取得のSQLを実行
-    $query = 'SELECT * FROM score LIMIT :ranking_num;';
+    $query = 'SELECT * FROM score ';
+    if ($order_by == 'ASC') {
+        $query .= 'ORDER BY ASC ';
+    } else {
+        $query .= 'ORDER BY DESC ';
+    }
+    $query .= 'LIMIT :ranking_num;';
     $prepare = $pdo->prepare($query);
     $prepare->bind_value(':ranking_num', $ranking_num, PDO::PARAM_INT);
     $stmt = $pdo->execute();

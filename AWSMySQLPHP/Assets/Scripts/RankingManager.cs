@@ -65,10 +65,11 @@ namespace UnityRanking
         private IEnumerator GetCurrentRanking()
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("rankingNum", "1");
+            dic.Add("rankingNum", "10");
+            dic.Add("orderBy", "ASC");
 
             // POST通信を実施
-            yield return ServerConnecter.Instance.Post(dic);
+            yield return ServerConnecter.Instance.Post("SelectScore.php", dic);
             //yield return null;
         }
 
@@ -105,7 +106,7 @@ namespace UnityRanking
             sendButton.interactable = false;
 
             // POST通信を実施
-            yield return ServerConnecter.Instance.Post(dic);
+            yield return ServerConnecter.Instance.Post("InsertScore.php", dic);
         }
     }
 }

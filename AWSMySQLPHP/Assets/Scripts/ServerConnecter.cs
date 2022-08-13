@@ -35,9 +35,10 @@ public class ServerConnecter
     /// <summary>
     /// Post通信処理
     /// </summary>
+    /// <param name="serverFileName">サーバー側のファイル名</param>
     /// <param name="requestParams">リクエストパラメータ</param>
     /// <returns></returns>
-    public IEnumerator Post(Dictionary<string, string> requestParams)
+    public IEnumerator Post(string serverFileName, Dictionary<string, string> requestParams)
     {
         // リクエストパラメータの設定
         WWWForm wWWForm = new WWWForm();
@@ -47,7 +48,7 @@ public class ServerConnecter
         }
 
         // POST通信
-        using (UnityWebRequest unityWebRequest = UnityWebRequest.Post(SERVER_ADDRESS, wWWForm))
+        using (UnityWebRequest unityWebRequest = UnityWebRequest.Post(SERVER_ADDRESS + serverFileName, wWWForm))
         {
             yield return unityWebRequest.SendWebRequest();
 
