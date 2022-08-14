@@ -42,6 +42,12 @@ namespace UnityRanking
         private RectTransform rankingViewContent;
 
         /// <summary>
+        /// ランキングビューのノードのプレハブ
+        /// </summary>
+        [SerializeField]
+        private GameObject rankingViewNodePrefab;
+
+        /// <summary>
         /// 直前のスコア
         /// </summary>
         private IScore lastScore;
@@ -64,13 +70,15 @@ namespace UnityRanking
         /// <returns></returns>
         private IEnumerator GetCurrentRanking()
         {
+            string responseData = string.Empty;
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("rankingNum", "10");
-            dic.Add("orderBy", "ASC");
+            dic.Add("orderBy", ScoreOrderType.OrderByAscending.ToString());
 
             // POST通信を実施
-            yield return ServerConnecter.Instance.Post("SelectScore.php", dic);
-            //yield return null;
+            yield return ServerConnecter.Instance.Post("SelectScore.php", dic, responseData);
+
+            Debug.Log("ランキング取得後のレスポンスデータ:" + responseData);
         }
 
         /// <summary>
@@ -98,6 +106,7 @@ namespace UnityRanking
         /// <returns></returns>
         private IEnumerator SendScore()
         {
+            string responseData = string.Empty;
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("name", nameField.text);
             dic.Add("score", lastScore.TextForDisplay);
@@ -106,7 +115,9 @@ namespace UnityRanking
             sendButton.interactable = false;
 
             // POST通信を実施
-            yield return ServerConnecter.Instance.Post("InsertScore.php", dic);
+            yield return ServerConnecter.Instance.Post("InsertScore.php", dic, responseData);
+
+            Debug.Log("スコア送信後のレスポンスデータ:" + responseData);
         }
     }
 }
