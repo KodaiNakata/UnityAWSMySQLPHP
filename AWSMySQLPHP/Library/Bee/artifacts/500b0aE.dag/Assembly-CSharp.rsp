@@ -342,6 +342,7 @@
 "Assets/Scripts/NumberScore.cs"
 "Assets/Scripts/RankingLoader.cs"
 "Assets/Scripts/RankingManager.cs"
+"Assets/Scripts/RankingViewNode.cs"
 "Assets/Scripts/ScoreOrderType.cs"
 "Assets/Scripts/ScoreType.cs"
 "Assets/Scripts/ServerConnecter.cs"
