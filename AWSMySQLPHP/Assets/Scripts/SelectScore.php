@@ -11,7 +11,7 @@ $order_by = $_POST["orderBy"];
 try {
     // スコアの取得のSQLを実行
     $query = 'SELECT * FROM score ';
-    if ($order_by == 'ASC') {
+    if ($order_by == 'OrderByAscending') {
         $query .= 'ORDER BY ASC ';
     } else {
         $query .= 'ORDER BY DESC ';
