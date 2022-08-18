@@ -10,7 +10,7 @@ $order_by = $_POST["orderBy"];
 
 try {
     // スコアの取得のSQLを実行
-    $query = 'SELECT * FROM score ';
+    $query = 'SELECT * FROM score_tbl ';
     if ($order_by == 'OrderByAscending') {
         $query .= 'ORDER BY ASC ';
     } else {

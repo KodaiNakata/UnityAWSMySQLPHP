@@ -10,7 +10,7 @@ $score = $_POST["score"];
 
 try {
     // スコアの登録のSQLを実行
-    $query = 'INSERT INTO score VALUES (:name , :score);';
+    $query = 'INSERT INTO score_tbl VALUES (:name , :score);';
     $prepare = $pdo->prepare($query);
     $prepare->bind_value(':name', $name, PDO::PARAM_STR);
     $prepare->bind_value(':score', $score);
