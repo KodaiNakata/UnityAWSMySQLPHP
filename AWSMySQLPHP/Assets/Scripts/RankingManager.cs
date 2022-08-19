@@ -48,6 +48,12 @@ namespace UnityRanking
         private GameObject rankingViewNodePrefab;
 
         /// <summary>
+        /// データが見つからない場合のノードのプレハブ
+        /// </summary>
+        [SerializeField]
+        private GameObject notFoundNodePrefab;
+
+        /// <summary>
         /// 直前のスコア
         /// </summary>
         private IScore lastScore;
@@ -79,6 +85,16 @@ namespace UnityRanking
             yield return ServerConnecter.Instance.Post("SelectScore.php", dic, responseData);
 
             Debug.Log("ランキング取得後のレスポンスデータ:" + responseData);
+
+            // レスポンスデータが空白のとき
+            if (responseData == string.Empty)
+            {
+                Instantiate(notFoundNodePrefab, rankingViewContent);
+            }
+            else
+            {
+
+            }
         }
 
         /// <summary>
