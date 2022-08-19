@@ -20,6 +20,8 @@ try {
     $prepare = $pdo->prepare($query);
     $prepare->bind_value(':ranking_num', $ranking_num, PDO::PARAM_INT);
     $stmt = $pdo->execute();
+
+    // クライアント側に送るスコアのデータ
     foreach ($stmt as $row) {
         $res = $res . $row['name'];
         $res = $res . $row['score'];
