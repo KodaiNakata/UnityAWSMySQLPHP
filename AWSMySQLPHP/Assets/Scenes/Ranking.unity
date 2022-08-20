@@ -2147,6 +2147,8 @@ MonoBehaviour:
   rankingViewContent: {fileID: 357074716}
   rankingViewNodePrefab: {fileID: 6776787325330704616, guid: 11aa4ed0df05d9f4caa8b45238641cee, type: 3}
   notFoundNodePrefab: {fileID: 6776787325330704616, guid: 3cbbaf67315d1e6449f71c078814c4ce, type: 3}
+  failedConnectionNodePrefab: {fileID: 6776787325330704616, guid: 682a09a780168b048a9f6048a006bbd7, type: 3}
+  readingNodePrefab: {fileID: 6776787325330704616, guid: eb29ac09eba3df8498aaeb63aba7f4d5, type: 3}
 --- !u!1 &2101565125
 GameObject:
   m_ObjectHideFlags: 0

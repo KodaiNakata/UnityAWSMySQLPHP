@@ -54,6 +54,18 @@ namespace UnityRanking
         private GameObject notFoundNodePrefab;
 
         /// <summary>
+        /// サーバー接続失敗した場合のノードのプレハブ
+        /// </summary>
+        [SerializeField]
+        private GameObject failedConnectionNodePrefab;
+
+        /// <summary>
+        /// 読み込み中のノードのプレハブ
+        /// </summary>
+        [SerializeField]
+        private GameObject readingNodePrefab;
+
+        /// <summary>
         /// 直前のスコア
         /// </summary>
         private IScore lastScore;
@@ -76,6 +88,8 @@ namespace UnityRanking
         /// <returns></returns>
         private IEnumerator GetCurrentRanking()
         {
+            Instantiate(readingNodePrefab, rankingViewContent);
+
             string responseData = string.Empty;
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("rankingNum", "10");
