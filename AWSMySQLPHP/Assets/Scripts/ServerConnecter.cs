@@ -55,6 +55,7 @@ public class ServerConnecter
         {
             yield return unityWebRequest.SendWebRequest();
 
+            //TODO：エラーの処理を追加予定
             if (unityWebRequest.isDone)
             {
                 Debug.Log("HttpPost OK:" + unityWebRequest.downloadHandler.text);
