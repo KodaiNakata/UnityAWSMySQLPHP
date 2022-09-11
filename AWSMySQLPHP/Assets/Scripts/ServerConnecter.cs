@@ -1,3 +1,4 @@
+using static System.Diagnostics.Debug;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -55,17 +56,33 @@ public class ServerConnecter
         {
             yield return unityWebRequest.SendWebRequest();
 
+            if(unityWebRequest.result == UnityWebRequest.Result.InProgress)
+            {
+                Debug.Log("リクエスト中");
+            }
+            else if(unityWebRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log("サーバーとの通信失敗");
+            }
+            else if(unityWebRequest.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.Log("エラー応答を返す");
+            }
+            else if(unityWebRequest.result == UnityWebRequest.Result.DataProcessingError)
+            {
+                Debug.Log("データの処理中にエラーが発生");
+            }
             //TODO：エラーの処理を追加予定
-            if (unityWebRequest.isDone)
-            {
-                Debug.Log("HttpPost OK:" + unityWebRequest.downloadHandler.text);
-                //TODO:レスポンスデータを格納
-                responseData = unityWebRequest.downloadHandler.text;
-            }
-            else
-            {
-                Debug.Log("HttpPost NG:" + unityWebRequest.error);
-            }
+            // if (unityWebRequest.isDone)
+            // {
+            //     Debug.Log("HttpPost OK:" + unityWebRequest.downloadHandler.text);
+            //     //TODO:レスポンスデータを格納
+            //     responseData = unityWebRequest.downloadHandler.text;
+            // }
+            // else
+            // {
+            //     Debug.Log("HttpPost NG:" + unityWebRequest.error);
+            // }
         }
     }
 }
