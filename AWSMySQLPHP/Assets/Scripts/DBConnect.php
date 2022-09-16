@@ -7,7 +7,7 @@
  */
 function connectDB()
 {
-    $dsn = 'mysql:dbname=localhost;host=;charset=utf8'; // DBのアドレス
+    $dsn = 'mysql:dbname=unity_test;host=localhost;charset=utf8'; // DBのアドレス
     $username = ''; // ユーザ名
     $password = ''; // パスワード
 
