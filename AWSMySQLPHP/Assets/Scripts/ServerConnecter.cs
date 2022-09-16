@@ -62,15 +62,20 @@ public class ServerConnecter
             }
             else if(unityWebRequest.result == UnityWebRequest.Result.ConnectionError)
             {
-                Debug.Log("サーバーとの通信失敗");
+                Debug.Log("サーバーとの通信失敗" + unityWebRequest.responseCode);
             }
             else if(unityWebRequest.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.Log("エラー応答を返す");
+                Debug.Log("エラー応答を返す" + unityWebRequest.responseCode);
             }
             else if(unityWebRequest.result == UnityWebRequest.Result.DataProcessingError)
             {
-                Debug.Log("データの処理中にエラーが発生");
+                Debug.Log("データの処理中にエラーが発生" + unityWebRequest.responseCode);
+            }
+            else
+            {
+                Debug.Log("成功" + unityWebRequest.responseCode);
+                responseData = "成功";
             }
             //TODO：エラーの処理を追加予定
             // if (unityWebRequest.isDone)
