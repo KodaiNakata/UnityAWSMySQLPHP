@@ -107,7 +107,7 @@ namespace UnityRanking
             }
             else
             {
-
+                //TODO：各ユーザのスコアをランキングに表示
             }
         }
 
