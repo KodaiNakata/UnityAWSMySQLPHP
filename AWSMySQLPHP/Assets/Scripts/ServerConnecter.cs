@@ -52,7 +52,7 @@ public class ServerConnecter
         }
 
         // POST通信
-        using (UnityWebRequest unityWebRequest = UnityWebRequest.Post(SERVER_ADDRESS + "/" + serverFileName, wWWForm))
+        using (UnityWebRequest unityWebRequest = UnityWebRequest.Post("http://" + SERVER_ADDRESS + "/" + serverFileName, wWWForm))
         {
             yield return unityWebRequest.SendWebRequest();
 
