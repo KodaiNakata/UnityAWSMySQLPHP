@@ -27,9 +27,11 @@ try {
         $res = $res . $row['score'];
     }
 } catch (PDOException $e) {
+    echo 'スコアの取得失敗';
     var_dump($e->getMessage());
 }
 
 $pdo = null; // DB切断
 
 echo $res; // クライアントに結果を返す
+?>

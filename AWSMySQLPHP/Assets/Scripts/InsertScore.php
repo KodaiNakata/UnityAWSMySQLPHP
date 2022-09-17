@@ -16,7 +16,9 @@ try {
     $prepare->bind_value(':score', $score);
     $pdo->execute();
 } catch (PDOException $e) {
+    echo 'スコアの登録失敗';
     var_dump($e->getMessage());
 }
 
 $pdo = null; // DB切断
+?>
