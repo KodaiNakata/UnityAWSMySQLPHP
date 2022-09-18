@@ -12,11 +12,11 @@ try {
     // スコアの登録のSQLを実行
     $query = 'INSERT INTO score_tbl VALUES (:name , :score);';
     $prepare = $pdo->prepare($query);
-    $prepare->bind_value(':name', $name, PDO::PARAM_STR);
-    $prepare->bind_value(':score', $score);
-    $pdo->execute();
+    $prepare->bindValue(':name', $name, PDO::PARAM_STR);
+    $prepare->bindValue(':score', $score);
+    $prepare->execute();
 } catch (PDOException $e) {
-    echo 'スコアの登録失敗';
+    echo 'スコアの登録失敗'."\n";
     var_dump($e->getMessage());
 }
 
