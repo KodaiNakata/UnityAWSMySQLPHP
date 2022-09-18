@@ -74,8 +74,8 @@ public class ServerConnecter
             }
             else
             {
-                Debug.Log("成功" + unityWebRequest.responseCode);
-                responseData = "成功";
+                responseData = unityWebRequest.downloadHandler.text;
+                Debug.Log("成功" + unityWebRequest.responseCode + "\n" + responseData);
             }
             //TODO：エラーの処理を追加予定
             // if (unityWebRequest.isDone)
