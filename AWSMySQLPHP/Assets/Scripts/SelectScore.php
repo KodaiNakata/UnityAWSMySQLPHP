@@ -1,5 +1,15 @@
 <?php
 
+class ScoreRecord
+{
+    public function ToJson() {
+        $this->score_id = $this->score_id;
+        $this->name = $this->name;
+        $this->score = $this->score;
+        return json_encode($this);
+    }
+}
+
 // DB接続処理
 require_once('DBConnect.php');
 $pdo = connectDB();
@@ -22,20 +32,15 @@ try {
     $prepare->execute();
 
     // スコアを取得
-    $stmt = $prepare->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $prepare->fetchAll(PDO::FETCH_CLASS, 'ScoreRecord');
 
     // スコアをクライアント側に送る用の変数に格納
     foreach ($stmt as $row) {
-        $res = $res . $row['name'];
-        $res = $res . $row['score'];
+        echo $row->ToJson();
     }
 } catch (PDOException $e) {
     echo 'スコアの取得失敗'."\n";
     var_dump($e->getMessage());
 }
-
 $pdo = null; // DB切断
-
-print_r($res);
-//echo $res; // クライアントに結果を返す
 ?>

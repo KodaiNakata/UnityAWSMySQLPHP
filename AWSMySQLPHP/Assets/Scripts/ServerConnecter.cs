@@ -76,18 +76,9 @@ public class ServerConnecter
             {
                 responseData = unityWebRequest.downloadHandler.text;
                 Debug.Log("成功" + unityWebRequest.responseCode + "\n" + responseData);
+                Debug.Log("score_id:" + JsonUtility.FromJson<ScoreRecord>(responseData).score_id.ToString());
+                //TODO:取得後のランキングビューへの反映をどうするか
             }
-            //TODO：エラーの処理を追加予定
-            // if (unityWebRequest.isDone)
-            // {
-            //     Debug.Log("HttpPost OK:" + unityWebRequest.downloadHandler.text);
-            //     //TODO:レスポンスデータを格納
-            //     responseData = unityWebRequest.downloadHandler.text;
-            // }
-            // else
-            // {
-            //     Debug.Log("HttpPost NG:" + unityWebRequest.error);
-            // }
         }
     }
 }
