@@ -345,6 +345,7 @@
 "Assets/Scripts/RankingManager.cs"
 "Assets/Scripts/RankingViewNode.cs"
 "Assets/Scripts/ScoreOrderType.cs"
+"Assets/Scripts/ScoreRecord.cs"
 "Assets/Scripts/ScoreType.cs"
 "Assets/Scripts/ServerConnecter.cs"
 "Assets/Scripts/TimeScore.cs"
