@@ -340,6 +340,7 @@
 -r:"Library/Bee/artifacts/500b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/Samples/SampleSceneManager.cs"
 "Assets/Scripts/IScore.cs"
+"Assets/Scripts/JsonUtilCustom.cs"
 "Assets/Scripts/NumberScore.cs"
 "Assets/Scripts/RankingLoader.cs"
 "Assets/Scripts/RankingManager.cs"
