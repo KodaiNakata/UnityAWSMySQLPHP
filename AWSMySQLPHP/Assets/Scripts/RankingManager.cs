@@ -100,11 +100,11 @@ namespace UnityRanking
             IEnumerator scoreRanking = ServerConnecter.Instance.Post("SelectScore.php", dic);
             yield return StartCoroutine(scoreRanking);
 
-            // Debug.Log("ランキング取得後のレスポンスデータ:" + JsonUtility.FromJson<ScoreRecord>((string)scoreRanking.Current).score_id.ToString());
+            Debug.Log("ランキング取得後のレスポンスデータ:" + JsonUtilCustom.FromJson<ScoreRecord>((string)scoreRanking.Current)[0].score_id.ToString());
+            ScoreRecord[] responseScoreRecords = JsonUtilCustom.FromJson<ScoreRecord>((string)scoreRanking.Current);
 
-            ScoreRecord responseScoreRecord = JsonUtility.FromJson<ScoreRecord>((string)scoreRanking.Current);
             // レスポンスデータが空白のとき
-            if (responseScoreRecord == null)
+            if (responseScoreRecords == null)
             {
                 // ランキングビューにデータなしを表示
                 Instantiate(notFoundNodePrefab, rankingViewContent);
@@ -112,11 +112,13 @@ namespace UnityRanking
             else
             {
                 // ランキングビューにスコアのランキングを表示
-                var r = Instantiate(rankingViewNodePrefab, rankingViewContent);
-                var rankingViewNode = r.GetComponent<RankingViewNode>();
-                rankingViewNode.NoText.text = "1";
-                rankingViewNode.NameText.text = responseScoreRecord.name;
-                rankingViewNode.ScoreText.text = responseScoreRecord.score.ToString();
+                for(int number = 0;number < responseScoreRecords.Length; number++){
+                    var r = Instantiate(rankingViewNodePrefab, rankingViewContent);
+                    var rankingViewNode = r.GetComponent<RankingViewNode>();
+                    rankingViewNode.NoText.text = (number + 1).ToString();
+                    rankingViewNode.NameText.text = responseScoreRecords[number].name;
+                    rankingViewNode.ScoreText.text = responseScoreRecords[number].score.ToString();
+                }
             }
         }
 
