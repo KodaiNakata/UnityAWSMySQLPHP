@@ -88,26 +88,35 @@ namespace UnityRanking
         /// <returns></returns>
         private IEnumerator GetCurrentRanking()
         {
+            // 読み込み中の文字を表示
             Instantiate(readingNodePrefab, rankingViewContent);
 
-            string responseData = string.Empty;
+            // パラメータの設定
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("rankingNum", "10");
             dic.Add("orderBy", ScoreOrderType.OrderByAscending.ToString());
 
             // POST通信を実施
-            yield return ServerConnecter.Instance.Post("SelectScore.php", dic, responseData);
+            IEnumerator scoreRanking = ServerConnecter.Instance.Post("SelectScore.php", dic);
+            yield return StartCoroutine(scoreRanking);
 
-            Debug.Log("ランキング取得後のレスポンスデータ:" + responseData);
+            // Debug.Log("ランキング取得後のレスポンスデータ:" + JsonUtility.FromJson<ScoreRecord>((string)scoreRanking.Current).score_id.ToString());
 
+            ScoreRecord responseScoreRecord = JsonUtility.FromJson<ScoreRecord>((string)scoreRanking.Current);
             // レスポンスデータが空白のとき
-            if (responseData == string.Empty)
+            if (responseScoreRecord == null)
             {
+                // ランキングビューにデータなしを表示
                 Instantiate(notFoundNodePrefab, rankingViewContent);
             }
             else
             {
-                //TODO：各ユーザのスコアをランキングに表示
+                // ランキングビューにスコアのランキングを表示
+                var r = Instantiate(rankingViewNodePrefab, rankingViewContent);
+                var rankingViewNode = r.GetComponent<RankingViewNode>();
+                rankingViewNode.NoText.text = "1";
+                rankingViewNode.NameText.text = responseScoreRecord.name;
+                rankingViewNode.ScoreText.text = responseScoreRecord.score.ToString();
             }
         }
 
@@ -136,18 +145,18 @@ namespace UnityRanking
         /// <returns></returns>
         private IEnumerator SendScore()
         {
-            string responseData = string.Empty;
+            // パラメータの設定
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("name", nameField.text);
             dic.Add("score", lastScore.TextForDisplay);
 
-            //名前が空白の場合はどのような処理をするのかを決める
+            //TODO：名前が空白の場合はどのような処理をするのかを決める
             sendButton.interactable = false;
 
             // POST通信を実施
-            yield return ServerConnecter.Instance.Post("InsertScore.php", dic, responseData);
+            yield return ServerConnecter.Instance.Post("InsertScore.php", dic);
 
-            Debug.Log("スコア送信後のレスポンスデータ:" + responseData);
+            // Debug.Log("スコア送信後のレスポンスデータ:" + responseData);
         }
     }
 }

@@ -42,7 +42,7 @@ public class ServerConnecter
     /// <param name="serverFileName">サーバー側のファイル名</param>
     /// <param name="requestParams">リクエストパラメータ</param>
     /// <returns></returns>
-    public IEnumerator Post(string serverFileName, Dictionary<string, string> requestParams, string responseData)
+    public IEnumerator Post(string serverFileName, Dictionary<string, string> requestParams)
     {
         // リクエストパラメータの設定
         WWWForm wWWForm = new WWWForm();
@@ -74,10 +74,9 @@ public class ServerConnecter
             }
             else
             {
-                responseData = unityWebRequest.downloadHandler.text;
-                Debug.Log("成功" + unityWebRequest.responseCode + "\n" + responseData);
-                Debug.Log("score_id:" + JsonUtility.FromJson<ScoreRecord>(responseData).score_id.ToString());
-                //TODO:取得後のランキングビューへの反映をどうするか
+                string responseData = unityWebRequest.downloadHandler.text;
+                Debug.Log("成功" + unityWebRequest.responseCode);
+                yield return responseData;
             }
         }
     }
