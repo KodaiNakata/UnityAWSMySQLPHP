@@ -76,6 +76,7 @@ public class ServerConnecter
             {
                 string responseData = unityWebRequest.downloadHandler.text;
                 Debug.Log("成功" + unityWebRequest.responseCode);
+                Debug.Log("レスポンスデータ:" + responseData);
                 yield return responseData;
             }
         }
