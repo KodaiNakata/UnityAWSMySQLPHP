@@ -1,3 +1,4 @@
+using System.Dynamic;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -71,6 +72,20 @@ namespace UnityRanking
         private IScore lastScore;
 
         /// <summary>
+        /// 名前のフィールドのテキストを取得する
+        /// </summary>
+        /// <returns>名前のフィールドのテキスト</returns>
+        private string GetNameFieldText()
+        {
+            // 名前のフィールドが空白の時
+            if (string.IsNullOrEmpty(nameField.text))
+            {
+                return "ななし";
+            }
+            return nameField.text;
+        }
+
+        /// <summary>
         /// 開始処理
         /// </summary>
         void Start()
@@ -112,7 +127,7 @@ namespace UnityRanking
             else
             {
                 // ランキングビューにスコアのランキングを表示
-                for(int number = 0;number < responseScoreRecords.Length; number++){
+                for(int number = 0; number < responseScoreRecords.Length; number++){
                     var r = Instantiate(rankingViewNodePrefab, rankingViewContent);
                     var rankingViewNode = r.GetComponent<RankingViewNode>();
                     rankingViewNode.NoText.text = (number + 1).ToString();
@@ -147,13 +162,12 @@ namespace UnityRanking
         /// <returns></returns>
         private IEnumerator SendScore()
         {
+            sendButton.interactable = false;
+
             // パラメータの設定
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("name", nameField.text);
+            dic.Add("name", GetNameFieldText());
             dic.Add("score", lastScore.TextForDisplay);
-
-            //TODO：名前が空白の場合はどのような処理をするのかを決める
-            sendButton.interactable = false;
 
             // POST通信を実施
             yield return ServerConnecter.Instance.Post("InsertScore.php", dic);
