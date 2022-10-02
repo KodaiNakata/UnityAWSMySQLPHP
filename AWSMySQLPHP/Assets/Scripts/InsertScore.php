@@ -10,7 +10,7 @@ $score = $_POST["score"];
 
 try {
     // スコアの登録のSQLを実行
-    $query = 'INSERT INTO score_tbl VALUES (:name , :score);';
+    $query = 'INSERT INTO score_tbl (name, score) VALUES (:name, :score);';
     $prepare = $pdo->prepare($query);
     $prepare->bindValue(':name', $name, PDO::PARAM_STR);
     $prepare->bindValue(':score', $score);
@@ -21,4 +21,3 @@ try {
 }
 
 $pdo = null; // DB切断
-?>
