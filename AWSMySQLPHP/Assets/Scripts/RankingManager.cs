@@ -171,8 +171,6 @@ namespace UnityRanking
 
             // POST通信を実施
             yield return ServerConnecter.Instance.Post("InsertScore.php", dic);
-
-            // Debug.Log("スコア送信後のレスポンスデータ:" + responseData);
         }
     }
 }
