@@ -115,7 +115,6 @@ namespace UnityRanking
             IEnumerator scoreRanking = ServerConnecter.Instance.Post("SelectScore.php", dic);
             yield return StartCoroutine(scoreRanking);
 
-            // Debug.Log("ランキング取得後のレスポンスデータ:" + JsonUtilCustom.FromJson<ScoreRecord>((string)scoreRanking.Current)[0].score_id.ToString());
             ScoreRecord[] responseScoreRecords = JsonUtilCustom.FromJson<ScoreRecord>((string)scoreRanking.Current);
 
             // レスポンスデータが空白のとき
