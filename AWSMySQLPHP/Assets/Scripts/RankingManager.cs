@@ -117,6 +117,8 @@ namespace UnityRanking
 
             ScoreRecord[] responseScoreRecords = JsonUtilCustom.FromJson<ScoreRecord>((string)scoreRanking.Current);
 
+            //TODO:ランキング取得後にハイスコアを送信できるかの処理を追加予定
+
             // レスポンスデータが空白のとき
             if (responseScoreRecords.Length == 0)
             {
