@@ -67,9 +67,9 @@ namespace UnityRanking
         private GameObject readingNodePrefab;
 
         /// <summary>
-        /// 直前のスコア
+        /// 自プレイヤーのスコア
         /// </summary>
-        private IScore lastScore;
+        private IScore myScore;
 
         /// <summary>
         /// 名前のフィールドのテキストを取得する
@@ -90,8 +90,8 @@ namespace UnityRanking
         /// </summary>
         void Start()
         {
-            lastScore = RankingLoader.Instance.LastScore;
-            scoreLabel.text = lastScore.TextForDisplay;
+            myScore = RankingLoader.Instance.MyScore;
+            scoreLabel.text = myScore.TextForDisplay;
 
             // 現在のランキングの取得
             StartCoroutine(GetCurrentRanking());
@@ -117,7 +117,6 @@ namespace UnityRanking
 
             ScoreRecord[] responseScoreRecords = JsonUtilCustom.FromJson<ScoreRecord>((string)scoreRanking.Current);
 
-            //TODO:ランキング取得後にハイスコアを送信できるかの処理を追加予定
 
             // レスポンスデータが空白のとき
             if (responseScoreRecords.Length == 0)
@@ -134,6 +133,38 @@ namespace UnityRanking
                     rankingViewNode.NoText.text = (number + 1).ToString();
                     rankingViewNode.NameText.text = responseScoreRecords[number].name;
                     rankingViewNode.ScoreText.text = responseScoreRecords[number].score.ToString();
+                }
+            
+                // 昇順のランキングとき
+                if(myScore.Type == ScoreOrderType.OrderByAscending)
+                {
+                    // 自分のスコアが最下位のスコアより小さいとき
+                    if(myScore.Value < responseScoreRecords[responseScoreRecords.Length - 1].score)
+                    {
+                        // 送信ボタンを活性
+                        sendButton.interactable = true;
+                    }
+                    else
+                    {
+                        // 送信ボタンを非活性
+                        sendButton.interactable = false;
+                    }
+                }
+
+                // 降順のランキングとき
+                else if(myScore.Type == ScoreOrderType.OrderByDescending)
+                {
+                    // 自分のスコアが最下位のスコアより大きいとき
+                    if(myScore.Value > responseScoreRecords[responseScoreRecords.Length - 1].score)
+                    {
+                        // 送信ボタンを活性
+                        sendButton.interactable = true;
+                    }
+                    else
+                    {
+                        // 送信ボタンを非活性
+                        sendButton.interactable = false;
+                    }
                 }
             }
         }
@@ -168,7 +199,7 @@ namespace UnityRanking
             // パラメータの設定
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("name", GetNameFieldText());
-            dic.Add("score", lastScore.TextForDisplay);
+            dic.Add("score", myScore.TextForDisplay);
 
             // POST通信を実施
             yield return ServerConnecter.Instance.Post("InsertScore.php", dic);
