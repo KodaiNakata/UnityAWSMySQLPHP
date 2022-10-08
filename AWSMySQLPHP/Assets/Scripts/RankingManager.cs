@@ -136,7 +136,7 @@ namespace UnityRanking
                 }
             
                 // 昇順のランキングとき
-                if(myScore.Type == ScoreOrderType.OrderByAscending)
+                if(myScore.OrderType == ScoreOrderType.OrderByAscending)
                 {
                     // 自分のスコアが最下位のスコアより小さいとき
                     if(myScore.Value < responseScoreRecords[responseScoreRecords.Length - 1].score)
@@ -152,7 +152,7 @@ namespace UnityRanking
                 }
 
                 // 降順のランキングとき
-                else if(myScore.Type == ScoreOrderType.OrderByDescending)
+                else if(myScore.OrderType == ScoreOrderType.OrderByDescending)
                 {
                     // 自分のスコアが最下位のスコアより大きいとき
                     if(myScore.Value > responseScoreRecords[responseScoreRecords.Length - 1].score)

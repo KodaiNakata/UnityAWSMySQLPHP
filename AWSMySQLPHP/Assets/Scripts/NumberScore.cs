@@ -1,3 +1,5 @@
+using System;
+using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +17,11 @@ namespace UnityRanking
         private double score;
 
         /// <summary>
+        /// スコアの昇順降順
+        /// </summary>
+        private ScoreOrderType orderType;
+
+        /// <summary>
         /// フォーマット
         /// </summary>
         private string format;
@@ -23,10 +30,12 @@ namespace UnityRanking
         /// コンストラクタ
         /// </summary>
         /// <param name="score">スコア</param>
+        /// <param name="orderType">スコアの昇順降順</param>
         /// <param name="format">フォーマット</param>
-        public NumberScore(double score, string format = "")
+        public NumberScore(double score, ScoreOrderType orderType, string format = "")
         {
             this.score = score;
+            this.orderType = orderType;
             this.format = format;
         }
 
@@ -70,6 +79,14 @@ namespace UnityRanking
         public double Value
         {
             get { return score; }
+        }
+
+        /// <summary>
+        /// スコアの昇順降順のプロパティ
+        /// </summary>
+        public ScoreOrderType OrderType
+        {
+            get {return orderType;}
         }
     }
 }

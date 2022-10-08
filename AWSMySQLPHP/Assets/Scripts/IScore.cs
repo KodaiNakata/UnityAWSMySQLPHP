@@ -12,6 +12,11 @@ namespace UnityRanking
         ScoreType Type { get; }
 
         /// <summary>
+        /// スコア昇順降順のプロパティ
+        /// </summary>
+        ScoreOrderType OrderType { get; }
+
+        /// <summary>
         /// 表示用文字列のプロパティ
         /// </summary>
         string TextForDisplay { get; }

@@ -53,9 +53,10 @@ namespace UnityRanking
         /// スコアの送信とランキングの表示（スコア:数値型）
         /// </summary>
         /// <param name="score">スコア</param>
-        public void SendScoreAndShowRanking(double score)
+        /// <param name="orderType">スコアの昇順降順</param>
+        public void SendScoreAndShowRanking(double score, ScoreOrderType orderType)
         {
-            var sc = new NumberScore(score);
+            var sc = new NumberScore(score, orderType);
             LoadRankingScene(sc);
         }
 
@@ -63,9 +64,10 @@ namespace UnityRanking
         /// 時間の送信とランキングの表示（スコア:時間型）
         /// </summary>
         /// <param name="time">時間</param>
-        public void SendTimeAndShowRanking(TimeSpan time)
+        /// <param name="orderType">スコアの昇順降順</param>
+        public void SendTimeAndShowRanking(TimeSpan time, ScoreOrderType orderType)
         {
-            var sc = new TimeScore(time);
+            var sc = new TimeScore(time, orderType);
             LoadRankingScene(sc);
         }
 
