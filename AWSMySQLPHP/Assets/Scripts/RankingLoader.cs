@@ -17,9 +17,9 @@ namespace UnityRanking
         private static RankingLoader instance;
 
         /// <summary>
-        /// 直前のスコア
+        /// 自プレイヤーのスコア
         /// </summary>
-        private IScore lastScore;
+        private IScore myScore;
 
         /// <summary>
         /// 自クラスのインスタンスのプロパティ
@@ -38,14 +38,14 @@ namespace UnityRanking
         }
 
         /// <summary>
-        /// 直前のスコアのプロパティ
+        /// 自プレイヤーのスコアのプロパティ
         /// </summary>
         /// <value></value>
-        public IScore LastScore
+        public IScore MyScore
         {
             get
             {
-                return lastScore;
+                return myScore;
             }
         }
 
@@ -75,7 +75,7 @@ namespace UnityRanking
         /// <param name="score">スコア情報のインタフェース</param>
         private void LoadRankingScene(IScore score)
         {
-            lastScore = score;
+            myScore = score;
             SceneManager.LoadScene("Ranking", LoadSceneMode.Additive);
         }
     }
