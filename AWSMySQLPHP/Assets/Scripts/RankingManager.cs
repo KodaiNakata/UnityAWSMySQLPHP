@@ -1,3 +1,5 @@
+using static System.Diagnostics.Debug;
+//using System.Diagnostics;
 using System.Dynamic;
 using System.Collections;
 using System.Collections.Generic;
@@ -103,6 +105,7 @@ namespace UnityRanking
         /// <returns></returns>
         private IEnumerator GetCurrentRanking()
         {
+            //TODO：読み込み中の文字の位置の変更
             // 読み込み中の文字を表示
             Instantiate(readingNodePrefab, rankingViewContent);
 
@@ -121,6 +124,7 @@ namespace UnityRanking
             // レスポンスデータが空白のとき
             if (responseScoreRecords.Length == 0)
             {
+                //TODO：データなしの文字の位置の変更
                 // ランキングビューにデータなしを表示
                 Instantiate(notFoundNodePrefab, rankingViewContent);
             }
@@ -143,11 +147,13 @@ namespace UnityRanking
                     {
                         // 送信ボタンを活性
                         sendButton.interactable = true;
+                        //TODO：「登録可能」の文字を表示させる
                     }
                     else
                     {
                         // 送信ボタンを非活性
                         sendButton.interactable = false;
+                        //TODO：「登録不可能」の文字を表示させる
                     }
                 }
 
@@ -159,11 +165,13 @@ namespace UnityRanking
                     {
                         // 送信ボタンを活性
                         sendButton.interactable = true;
+                        //TODO：「登録可能」の文字を表示させる
                     }
                     else
                     {
                         // 送信ボタンを非活性
                         sendButton.interactable = false;
+                        //TODO：「登録不可能」の文字を表示させる
                     }
                 }
             }
