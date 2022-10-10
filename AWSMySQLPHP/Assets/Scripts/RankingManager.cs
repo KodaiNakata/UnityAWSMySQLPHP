@@ -1,3 +1,4 @@
+using System;
 using static System.Diagnostics.Debug;
 //using System.Diagnostics;
 using System.Dynamic;
@@ -33,6 +34,12 @@ namespace UnityRanking
         private TextMeshProUGUI scoreLabel;
 
         /// <summary>
+        /// ランキングの状態のラベル
+        /// </summary>
+        [SerializeField]
+        private TextMeshProUGUI rankingStateLabel;
+
+        /// <summary>
         /// 名前の入力フィールド
         /// </summary>
         [SerializeField]
@@ -49,24 +56,6 @@ namespace UnityRanking
         /// </summary>
         [SerializeField]
         private GameObject rankingViewNodePrefab;
-
-        /// <summary>
-        /// データが見つからない場合のノードのプレハブ
-        /// </summary>
-        [SerializeField]
-        private GameObject notFoundNodePrefab;
-
-        /// <summary>
-        /// サーバー接続失敗した場合のノードのプレハブ
-        /// </summary>
-        [SerializeField]
-        private GameObject failedConnectionNodePrefab;
-
-        /// <summary>
-        /// 読み込み中のノードのプレハブ
-        /// </summary>
-        [SerializeField]
-        private GameObject readingNodePrefab;
 
         /// <summary>
         /// 自プレイヤーのスコア
@@ -105,9 +94,8 @@ namespace UnityRanking
         /// <returns></returns>
         private IEnumerator GetCurrentRanking()
         {
-            //TODO：読み込み中の文字の位置の変更
             // 読み込み中の文字を表示
-            Instantiate(readingNodePrefab, rankingViewContent);
+            rankingStateLabel.text = "よみこみちゅう...";
 
             // パラメータの設定
             Dictionary<string, string> dic = new Dictionary<string, string>();
@@ -118,15 +106,14 @@ namespace UnityRanking
             IEnumerator scoreRanking = ServerConnecter.Instance.Post("SelectScore.php", dic);
             yield return StartCoroutine(scoreRanking);
 
+            //TODO：DB接続失敗時のエラーの処理を改良
             ScoreRecord[] responseScoreRecords = JsonUtilCustom.FromJson<ScoreRecord>((string)scoreRanking.Current);
-
 
             // レスポンスデータが空白のとき
             if (responseScoreRecords.Length == 0)
             {
-                //TODO：データなしの文字の位置の変更
-                // ランキングビューにデータなしを表示
-                Instantiate(notFoundNodePrefab, rankingViewContent);
+                // ランキングの状態ラベルにデータなしを表示
+                rankingStateLabel.text = "ランキングのデータなし";
             }
             else
             {
@@ -147,13 +134,17 @@ namespace UnityRanking
                     {
                         // 送信ボタンを活性
                         sendButton.interactable = true;
-                        //TODO：「登録可能」の文字を表示させる
+
+                        // とうろくOKの文字を表示
+                        rankingStateLabel.text = "スコアのとうろくOK";
                     }
                     else
                     {
                         // 送信ボタンを非活性
                         sendButton.interactable = false;
-                        //TODO：「登録不可能」の文字を表示させる
+
+                        // とうろくNGの文字を表示
+                        rankingStateLabel.text = "スコアのとうろくNG";
                     }
                 }
 
@@ -165,13 +156,17 @@ namespace UnityRanking
                     {
                         // 送信ボタンを活性
                         sendButton.interactable = true;
-                        //TODO：「登録可能」の文字を表示させる
+
+                        // とうろくOKの文字を表示
+                        rankingStateLabel.text = "スコアのとうろくOK";
                     }
                     else
                     {
                         // 送信ボタンを非活性
                         sendButton.interactable = false;
-                        //TODO：「登録不可能」の文字を表示させる
+
+                        // とうろくNGの文字を表示
+                        rankingStateLabel.text = "スコアのとうろくNG";
                     }
                 }
             }
@@ -202,7 +197,11 @@ namespace UnityRanking
         /// <returns></returns>
         private IEnumerator SendScore()
         {
+            // 送信ボタンを非活性
             sendButton.interactable = false;
+
+            // とうろくちゅうの文字を表示
+            rankingStateLabel.text = "とうろくちゅう...";
 
             // パラメータの設定
             Dictionary<string, string> dic = new Dictionary<string, string>();
