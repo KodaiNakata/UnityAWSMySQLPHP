@@ -107,66 +107,73 @@ namespace UnityRanking
             yield return StartCoroutine(scoreRanking);
 
             //TODO：DB接続失敗時のエラーの処理を改良
-            ScoreRecord[] responseScoreRecords = JsonUtilCustom.FromJson<ScoreRecord>((string)scoreRanking.Current);
-
-            // レスポンスデータが空白のとき
-            if (responseScoreRecords.Length == 0)
+            if(String.IsNullOrEmpty((string)scoreRanking.Current))
             {
-                // ランキングの状態ラベルにデータなしを表示
-                rankingStateLabel.text = "ランキングのデータなし";
+                rankingStateLabel.text = "よみこみふか";
             }
             else
             {
-                // ランキングビューにスコアのランキングを表示
-                for(int number = 0; number < responseScoreRecords.Length; number++){
-                    var r = Instantiate(rankingViewNodePrefab, rankingViewContent);
-                    var rankingViewNode = r.GetComponent<RankingViewNode>();
-                    rankingViewNode.NoText.text = (number + 1).ToString();
-                    rankingViewNode.NameText.text = responseScoreRecords[number].name;
-                    rankingViewNode.ScoreText.text = responseScoreRecords[number].score.ToString();
+                ScoreRecord[] responseScoreRecords = JsonUtilCustom.FromJson<ScoreRecord>((string)scoreRanking.Current);
+
+                // レスポンスデータが空白のとき
+                if (responseScoreRecords.Length == 0)
+                {
+                    // ランキングの状態ラベルにデータなしを表示
+                    rankingStateLabel.text = "ランキングのデータなし";
                 }
+                else
+                {
+                    // ランキングビューにスコアのランキングを表示
+                    for(int number = 0; number < responseScoreRecords.Length; number++){
+                        var r = Instantiate(rankingViewNodePrefab, rankingViewContent);
+                        var rankingViewNode = r.GetComponent<RankingViewNode>();
+                        rankingViewNode.NoText.text = (number + 1).ToString();
+                        rankingViewNode.NameText.text = responseScoreRecords[number].name;
+                        rankingViewNode.ScoreText.text = responseScoreRecords[number].score.ToString();
+                    }
             
-                // 昇順のランキングとき
-                if(myScore.OrderType == ScoreOrderType.OrderByAscending)
-                {
-                    // 自分のスコアが最下位のスコアより小さいとき
-                    if(myScore.Value < responseScoreRecords[responseScoreRecords.Length - 1].score)
+                    // 昇順のランキングとき
+                    if(myScore.OrderType == ScoreOrderType.OrderByAscending)
                     {
-                        // 送信ボタンを活性
-                        sendButton.interactable = true;
+                        // 自分のスコアが最下位のスコアより小さいとき
+                        if(myScore.Value < responseScoreRecords[responseScoreRecords.Length - 1].score)
+                        {
+                            // 送信ボタンを活性
+                            sendButton.interactable = true;
 
-                        // とうろくOKの文字を表示
-                        rankingStateLabel.text = "スコアのとうろくOK";
+                            // とうろくOKの文字を表示
+                            rankingStateLabel.text = "スコアのとうろくOK";
+                        }
+                        else
+                        {
+                            // 送信ボタンを非活性
+                            sendButton.interactable = false;
+
+                            // とうろくNGの文字を表示
+                            rankingStateLabel.text = "スコアのとうろくNG";
+                        }
                     }
-                    else
+
+                    // 降順のランキングとき
+                    else if(myScore.OrderType == ScoreOrderType.OrderByDescending)
                     {
-                        // 送信ボタンを非活性
-                        sendButton.interactable = false;
+                        // 自分のスコアが最下位のスコアより大きいとき
+                        if(myScore.Value > responseScoreRecords[responseScoreRecords.Length - 1].score)
+                        {
+                            // 送信ボタンを活性
+                            sendButton.interactable = true;
 
-                        // とうろくNGの文字を表示
-                        rankingStateLabel.text = "スコアのとうろくNG";
-                    }
-                }
+                            // とうろくOKの文字を表示
+                            rankingStateLabel.text = "スコアのとうろくOK";
+                        }
+                        else
+                        {
+                            // 送信ボタンを非活性
+                            sendButton.interactable = false;
 
-                // 降順のランキングとき
-                else if(myScore.OrderType == ScoreOrderType.OrderByDescending)
-                {
-                    // 自分のスコアが最下位のスコアより大きいとき
-                    if(myScore.Value > responseScoreRecords[responseScoreRecords.Length - 1].score)
-                    {
-                        // 送信ボタンを活性
-                        sendButton.interactable = true;
-
-                        // とうろくOKの文字を表示
-                        rankingStateLabel.text = "スコアのとうろくOK";
-                    }
-                    else
-                    {
-                        // 送信ボタンを非活性
-                        sendButton.interactable = false;
-
-                        // とうろくNGの文字を表示
-                        rankingStateLabel.text = "スコアのとうろくNG";
+                            // とうろくNGの文字を表示
+                            rankingStateLabel.text = "スコアのとうろくNG";
+                        }
                     }
                 }
             }

@@ -1,3 +1,5 @@
+using System.Collections.Specialized;
+using System.Text;
 using static System.Diagnostics.Debug;
 using System;
 using System.Collections;
@@ -55,26 +57,32 @@ public class ServerConnecter
         using (UnityWebRequest unityWebRequest = UnityWebRequest.Post("http://" + SERVER_ADDRESS + "/" + serverFileName, wWWForm))
         {
             yield return unityWebRequest.SendWebRequest();
+            
+            string responseData = String.Empty;
 
             if(unityWebRequest.result == UnityWebRequest.Result.InProgress)
             {
                 Debug.Log("リクエスト中");
+                yield return responseData;
             }
             else if(unityWebRequest.result == UnityWebRequest.Result.ConnectionError)
             {
                 Debug.Log("サーバーとの通信失敗" + unityWebRequest.responseCode);
+                yield return responseData;
             }
             else if(unityWebRequest.result == UnityWebRequest.Result.ProtocolError)
             {
                 Debug.Log("エラー応答を返す" + unityWebRequest.responseCode);
+                yield return responseData;
             }
             else if(unityWebRequest.result == UnityWebRequest.Result.DataProcessingError)
             {
                 Debug.Log("データの処理中にエラーが発生" + unityWebRequest.responseCode);
+                yield return responseData;
             }
             else
             {
-                string responseData = unityWebRequest.downloadHandler.text;
+                responseData = unityWebRequest.downloadHandler.text;
                 Debug.Log("成功" + unityWebRequest.responseCode);
                 Debug.Log("レスポンスデータ:" + responseData);
                 yield return responseData;
