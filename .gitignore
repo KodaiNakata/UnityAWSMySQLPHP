@@ -4,7 +4,6 @@
 /[Bb]uild/
 /[Bb]uilds/
 /[Ll]ogs/
-/[Uu]ser[Ss]ettings/
 /[Mm]emoryCaptures/
 /[Rr]ecordings/
 /[Aa]ssets/Plugins/Editor/JetBrains*
@@ -12,9 +11,6 @@
 .gradle/
 ExportedObj/
 .consulo/
-*.csproj
-*.unityproj
-*.sln
 *.suo
 *.tmp
 *.user
@@ -32,7 +28,6 @@ ExportedObj/
 sysinfo.txt
 *.apk
 *.aab
-*.unitypackage
 *.app
 crashlytics-build.properties
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
