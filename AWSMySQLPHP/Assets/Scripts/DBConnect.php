@@ -14,10 +14,9 @@ function connectDB()
     try {
         $pdo = new PDO($dsn, $username, $password);
     } catch (PDOException $e) {
-        echo 'DB接続失敗'."\n";
-        exit('' . $e->getMessage());
+        echo '';
+        exit();
     }
 
     return $pdo;
 }
-?>

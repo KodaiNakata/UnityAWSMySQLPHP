@@ -37,7 +37,7 @@ try {
     header('Content-Type: application/json; charset=UTF-8');
     echo json_encode($stms);
 } catch (PDOException $e) {
-    echo 'スコアの取得失敗' . "\n";
+    echo '';
     var_dump($e->getMessage());
 }
 $pdo = null; // DB切断
