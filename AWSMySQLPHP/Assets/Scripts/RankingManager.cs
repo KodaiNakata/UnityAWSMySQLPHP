@@ -106,7 +106,7 @@ namespace UnityRanking
             IEnumerator scoreRanking = ServerConnecter.Instance.Post("SelectScore.php", dic);
             yield return StartCoroutine(scoreRanking);
 
-            //TODO：DB接続失敗時のエラーの処理を改良
+            // サーバー側からエラーが返ってきたとき
             if(String.IsNullOrEmpty((string)scoreRanking.Current))
             {
                 rankingStateLabel.text = "よみこみふか";
@@ -217,6 +217,8 @@ namespace UnityRanking
 
             // POST通信を実施
             yield return ServerConnecter.Instance.Post("InsertScore.php", dic);
+
+            //TODO：サーバー側のエラー処理の追加予定
         }
     }
 }
