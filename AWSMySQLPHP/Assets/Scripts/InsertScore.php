@@ -15,6 +15,7 @@ try {
     $prepare->bindValue(':name', $name, PDO::PARAM_STR);
     $prepare->bindValue(':score', $score);
     $prepare->execute();
+    echo '登録完了';
 } catch (PDOException $e) {
     echo '';
     var_dump($e->getMessage());
