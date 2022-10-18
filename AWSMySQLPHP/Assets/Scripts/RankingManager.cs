@@ -216,9 +216,19 @@ namespace UnityRanking
             dic.Add("score", myScore.TextForDisplay);
 
             // POST通信を実施
-            yield return ServerConnecter.Instance.Post("InsertScore.php", dic);
+            IEnumerator insertRanking = ServerConnecter.Instance.Post("InsertScore.php", dic);
+            yield return StartCoroutine(insertRanking);
 
-            //TODO：サーバー側のエラー処理の追加予定
+            // サーバー側からエラーが返ってきたとき
+            if(String.IsNullOrEmpty((string)insertRanking.Current))
+            {
+                rankingStateLabel.text = "とうろくふか";
+            }
+            else
+            {
+                rankingStateLabel.text = "とうろくかんりょう";
+                //TODO：登録を完了した後、ランキングビューに反映するのと画面を閉じるを行うかどうか未定
+            }
         }
     }
 }
