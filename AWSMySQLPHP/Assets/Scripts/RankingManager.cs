@@ -223,6 +223,9 @@ namespace UnityRanking
             if(String.IsNullOrEmpty((string)insertRanking.Current))
             {
                 rankingStateLabel.text = "とうろくふか";
+                
+                // 再送信できるように送信ボタンを活性
+                sendButton.interactable = true;
             }
             else
             {
