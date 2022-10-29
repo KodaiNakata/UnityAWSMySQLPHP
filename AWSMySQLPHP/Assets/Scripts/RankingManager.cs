@@ -99,7 +99,7 @@ namespace UnityRanking
 
             // パラメータの設定
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("rankingNum", "10");
+            dic.Add("rankingNum", myScore.BottomRank.ToString());
             dic.Add("orderBy", ScoreOrderType.OrderByAscending.ToString());
 
             // POST通信を実施
@@ -132,8 +132,18 @@ namespace UnityRanking
                         rankingViewNode.ScoreText.text = responseScoreRecords[number].score.ToString();
                     }
             
+                    // 取得したスコアの数がまだ最下位に達していないとき
+                    if(myScore.BottomRank > responseScoreRecords.Length)
+                    {
+                        // 送信ボタンを活性
+                        sendButton.interactable = true;
+                        
+                        // とうろくOKの文字を表示
+                        rankingStateLabel.text = "スコアのとうろくOK";
+                    }
+                    
                     // 昇順のランキングとき
-                    if(myScore.OrderType == ScoreOrderType.OrderByAscending)
+                    else if(myScore.OrderType == ScoreOrderType.OrderByAscending)
                     {
                         // 自分のスコアが最下位のスコアより小さいとき
                         if(myScore.Value < responseScoreRecords[responseScoreRecords.Length - 1].score)
