@@ -21,6 +21,11 @@ namespace UnityRanking
         private ScoreOrderType orderType;
 
         /// <summary>
+        /// 最下位
+        /// </summary>
+        private int bottomRank;
+
+        /// <summary>
         /// フォーマット
         /// </summary>
         private string format;
@@ -30,11 +35,13 @@ namespace UnityRanking
         /// </summary>
         /// <param name="time">時間</param>
         /// <param name="orderType">スコアの昇順降順</param>
+        /// <param name="bottomRank">順位の数</param>
         /// <param name="format">フォーマット</param>
-        public TimeScore(TimeSpan time, ScoreOrderType orderType, string format = "")
+        public TimeScore(TimeSpan time, ScoreOrderType orderType, int bottomRank, string format = "")
         {
             this.time = time;
             this.orderType = orderType;
+            this.bottomRank = bottomRank;
             this.format = format;
         }
 
@@ -85,7 +92,15 @@ namespace UnityRanking
         /// </summary>
         public ScoreOrderType OrderType
         {
-            get {return orderType;}
+            get { return orderType; }
+        }
+
+        /// <summary>
+        /// 最下位のプロパティ
+        /// </summary>
+        public int BottomRank
+        {
+            get { return bottomRank; }
         }
     }
 }

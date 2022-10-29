@@ -30,5 +30,10 @@ namespace UnityRanking
         /// 値のプロパティ
         /// </summary>
         double Value { get; }
+
+        /// <summary>
+        /// 最下位のプロパティ
+        /// </summary>
+        int BottomRank { get; }
     }
 }
