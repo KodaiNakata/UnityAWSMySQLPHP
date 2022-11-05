@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-/// <summary>
-/// ランキングビューのノードクラス
-/// </summary>
-public class RankingViewNode : MonoBehaviour
+namespace UnityRanking
 {
     /// <summary>
-    /// 順位のテキスト
+    /// ランキングビューのノードクラス
     /// </summary>
-    public TextMeshProUGUI NoText;
+    public class RankingViewNode : MonoBehaviour
+    {
+        /// <summary>
+        /// 順位のテキスト
+        /// </summary>
+        public TextMeshProUGUI NoText;
 
-    /// <summary>
-    /// 名前のテキスト
-    /// </summary>
-    public TextMeshProUGUI NameText;
+        /// <summary>
+        /// 名前のテキスト
+        /// </summary>
+        public TextMeshProUGUI NameText;
 
-    /// <summary>
-    /// スコアのテキスト
-    /// </summary>
-    public TextMeshProUGUI ScoreText;
+        /// <summary>
+        /// スコアのテキスト
+        /// </summary>
+        public TextMeshProUGUI ScoreText;
+    }    
 }
