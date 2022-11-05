@@ -123,6 +123,9 @@ namespace UnityRanking
                 }
                 else
                 {
+                    // ランキングビューの内容をクリア
+                    ClearRankingView();
+
                     // ランキングビューにスコアのランキングを表示
                     for(int number = 0; number < responseScoreRecords.Length; number++){
                         var r = Instantiate(rankingViewNodePrefab, rankingViewContent);
@@ -240,7 +243,21 @@ namespace UnityRanking
             else
             {
                 rankingStateLabel.text = "とうろくかんりょう";
-                //TODO：登録を完了した後、ランキングビューに反映するのと画面を閉じるを行うかどうか未定
+
+                // スコア登録完了後、ランキングビューに反映するためランキングを再取得
+                yield return StartCoroutine(GetCurrentRanking());
+            }
+        }
+
+        /// <summary>
+        /// ランキングビューの内容をクリアする
+        /// </summary>
+        private void ClearRankingView()
+        {
+            int nodeCount = rankingViewContent.childCount;
+            for (int i = nodeCount - 1; i >= 0; i--)
+            {
+                Destroy(rankingViewContent.GetChild(i).gameObject);
             }
         }
     }
