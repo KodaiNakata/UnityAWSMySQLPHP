@@ -226,7 +226,7 @@ namespace UnityRanking
             // パラメータの設定
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("name", GetNameFieldText());
-            dic.Add("score", myScore.TextForDisplay);
+            dic.Add("score", myScore.Value.ToString());
 
             // POST通信を実施
             IEnumerator insertRanking = ServerConnecter.Instance.Post("InsertScore.php", dic);
