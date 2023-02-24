@@ -1,3 +1,2 @@
 # ランキングフォーム
-![image](https://user-images.githubusercontent.com/22285365/175546376-adcd46dd-4b7c-4150-a583-cacfae3b3130.png)
-
+![image](https://user-images.githubusercontent.com/22285365/221181529-03b54e90-bebf-4af7-8143-0cd05a73b47d.png)
